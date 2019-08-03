@@ -1,19 +1,23 @@
 require('dotenv').config()
 
 import createError from 'http-errors'
-import express from 'express'
-import cookieParser from 'cookie-parser'
+import express from 'express' // http 핸들링 가능
+import cookieParser from 'cookie-parser' // 쿠키
 import logger from 'morgan'
 import v1Route from './routes/v1' // index.js가 포함한 모든 모듈을 가져옴
 
 const app = express() // 익스프레스 객체 받아옴
 
 app.use(logger('dev'))
+// json과 urlencode를 받겠다
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+//
 app.use(cookieParser())
 
+
 app.use('/v1', v1Route) // 서버 주소 매핑
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 require('dotenv').config()
 
+// TCP / UDP 설정 단
+
 /**
  * Module dependencies.
  */
@@ -13,22 +15,25 @@ var http = require('http')
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000')
+var port = normalizePort(process.env.PORT || '3000') // .env 포트 설정이 되어있으면 쓰고 없으면 defalut
 app.set('port', port)
+// OSI 6 Layer까지 세팅
 
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app)
+// 실제 HTTP 프로토콜이 올라가는 곳
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port)
+// 이벤트 리스너
 server.on('error', onError)
-server.on('listening', onListening)
+server.on('listening', onListening) /// 커스터마이징
 
 /**
  * Normalize a port into a number, string, or false.
@@ -88,4 +93,5 @@ function onListening () {
     ? 'pipe ' + addr
     : 'port ' + addr.port
   debug('Listening on ' + bind)
+  // 의미 있는 정보를 디버깅에 사용 가능
 }

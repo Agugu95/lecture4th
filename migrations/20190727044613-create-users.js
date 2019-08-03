@@ -12,7 +12,7 @@ module.exports = { // mygrated 명령어
         },
         uid: {
           allowNull: false,
-          type: Sequelize.STRING
+          type: 'BINARY(6)' // 12자짜리 바이너리 스트링 6바이트
         },
         nickname: {
           allowNull: false,

@@ -1,10 +1,10 @@
-// 테스트 파일
+// 통합 테스트 파일
 require('dotenv').config()
 import request from 'supertest'
 import randomString from 'random-string'
-import models from '../models'
+import models from '../../models'
 
-const app = require('../app')
+const app = require('../../app')
 // 서버를 실제로 돌리지 않고, 코드상에서만 돌림
 
 afterAll(() => {
@@ -23,21 +23,21 @@ describe('사용자 조회 테스트', () => { // lecture - test DB 필요
         // 무조건 이게 먼저 1번 도는 hook, 이게 완료 되야 테스트 작동
         // get 조회 시 비교를 위한 유저 객체
         await models.User.create({
-            uid: 'test1',
+            // uid: 'test1',
             nickname: 'test1',
             password: 'test1',
             profileImg: 'http://www.naver.com'
         })
 
         await models.User.create({
-            uid: 'test2',
+            // uid: 'test2',
             nickname: 'test2',
             password: 'test2',
             profileImg: 'http://www.naver.com'
         })
 
         await models.User.create({
-            uid: 'test3',
+            //  uid: 'test3',
             nickname: 'test3',
             password: 'test3',
             profileImg: 'http://www.naver.com'
@@ -52,10 +52,11 @@ describe('사용자 조회 테스트', () => { // lecture - test DB 필요
 
         expect(res.status).toBe(200) // user DB에 get을 했을 때 받아와야하는 status code
         expect(res.body.user).not.toBe(null) // user를 받아 왔을 때  NotNull 이여야한다
-        expect(res.body.user.uid).toBe('test1') // get을 통해 가져온 정보와 비교할 정보의 일치 판단
+        //expect(res.body.user.uid).toBe('test1') // get을 통해 가져온 정보와 비교할 정보의 일치 판단
         expect(res.body.user.nickname).toBe('test1')
         expect(res.body.user.password).toBe('test1')
         expect(res.body.user.profileImg).toBe('http://www.naver.com')
+        expect(res.body.user.uid).toMatch(/\b[0-9a-f]{12}\b/g)
     })
 
 
@@ -72,7 +73,7 @@ describe('사용자 생성 테스트', () => { // CREATE = POST
     // status를 통한 구분 !!
     test('사용자를 생성하고 모든 데이터가 제대로 저장이 되어야 합니다. | 201', async () => {
         const newUser = {
-            uid: randomString(),
+            // uid: randomString(),
             nickname: randomString(),
             password: randomString(),
             profileImg: 'http://www.naver.com'
@@ -88,7 +89,7 @@ describe('사용자 생성 테스트', () => { // CREATE = POST
         // 서버는 각 테스트를 잘 작성하기만 하면 테스트 자체가 바뀌는 일은 거의 없다.
         expect(res.status).toBe(201)
         // 생성 되는 데이터와 보내는 데이터가 똑같냐?
-        expect(res.body.user.uid).toBe(newUser.uid)
+        //expect(res.body.user.uid).toBe(newUser.uid)
         expect(res.body.user.nickname).toBe(newUser.nickname)
         expect(res.body.user.password).toBe(newUser.password)
         expect(res.body.user.profileImg).toBe(newUser.profileImg)
@@ -103,7 +104,7 @@ describe('사용자 업데이트', () => { // UPDATE = PUT
     let user
     beforeAll(async () => {
         user = await models.User.create({
-            uid: randomString(),
+            //  uid: randomString(),
             nickname: randomString(),
             password: randomString(),
             profileImg: 'http://www.naver.com'
@@ -133,7 +134,7 @@ describe('사용자 삭제', () => {
     let user
     beforeAll(async () => {
         user = await models.User.create({
-            uid: randomString(),
+            //uid: randomString(),
             nickname: randomString(),
             password: randomString(),
             profileImg: 'http://www.naver.com'

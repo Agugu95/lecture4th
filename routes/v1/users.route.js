@@ -17,7 +17,9 @@ router.route('/')
     .get(get)
     .post(create)
 
-// GET /v1/users/id : 특정 사용자 조회
+// GET /v1/users/:id  특정 사용자 조회
+// PUT /v1/users/:id  특정 사용자 업데이트
+// DEL /v1/users/:id  특정 사용자 삭제
 router.route('/:id') // 스코프 지정 : id dog면 dog:id
     .get(get)
     .put(update) // 특정 사용자만 업데이트 하지 전체를 업데이트 하지 않음
